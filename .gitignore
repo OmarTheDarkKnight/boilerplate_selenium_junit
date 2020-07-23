@@ -1,3 +1,23 @@
+.classpath
+.project
+.settings/
+*.tmp
+*.bak
+*.swp
+*~.nib
+
+/target/
+/reports/
+
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
+*.REMOTE.*
+*_BACKUP_*.txt
+*_BASE_*.txt
+*_LOCAL_*.txt
+*_REMOTE_*.txt
+
 # Compiled class file
 *.class
 
@@ -21,3 +41,19 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+
+$RECYCLE.BIN/
+
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+*.stackdump
+*.iml
+.idea
