@@ -7,7 +7,7 @@ public class TestUtil extends BaseTest {
      * Reads data from @sheetName and populates the Object[][] data array
      * returns the data array
      * */
-    public Object[][] readData(String sheetName) {
+    public static Object[][] readData(String sheetName) {
         if(excelFileReader == null) {
             excelFileReader = new ExcelFileReader(xlsxFilePath);
         }
@@ -16,7 +16,7 @@ public class TestUtil extends BaseTest {
         try {
             int rowLength = excelFileReader.getRowCount(sheetName);
             int cellLength = excelFileReader.getCellCount();
-            data = new Object[rowLength][cellLength];
+            data = new Object[rowLength-1][cellLength];
 
             for(int rowNum = 1; rowNum < rowLength; rowNum++) {
                 for(int cellNum = 0; cellNum < cellLength; cellNum++) {
