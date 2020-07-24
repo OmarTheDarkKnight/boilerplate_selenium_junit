@@ -21,9 +21,9 @@ public class BaseTest {
     public Properties prop = null;
     public JavascriptExecutor js;
     public Actions act;
-    public static ExcelFileReader excelFileReader;
 
-    public String xlsxFilePath = System.getProperty("user.dir") + "\\src\\test\\resources\\data..xlsx";
+    public static ExcelFileReader excelFileReader;
+    public static String xlsxFilePath = System.getProperty("user.dir") + "\\src\\test\\resources\\data.xlsx";
 
     /**
      * launches browser based on the string provided by initializing the spring application context
