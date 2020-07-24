@@ -4,6 +4,33 @@ import base.BaseTest;
 
 public class TestUtil extends BaseTest {
     /**
+     * Reads data from @sheetName and populates the Object[][] data array
+     * returns the data array
+     * */
+    public Object[][] readData(String sheetName) {
+        if(excelFileReader == null) {
+            excelFileReader = new ExcelFileReader(xlsxFilePath);
+        }
+
+        Object[][] data = null;
+        try {
+            int rowLength = excelFileReader.getRowCount(sheetName);
+            int cellLength = excelFileReader.getCellCount();
+            data = new Object[rowLength][cellLength];
+
+            for(int rowNum = 1; rowNum < rowLength; rowNum++) {
+                for(int cellNum = 0; cellNum < cellLength; cellNum++) {
+                    data[rowNum-1][cellNum] = excelFileReader.getCellData(rowNum, cellNum);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return data;
+    }
+
+    /**
      * returns the skip condition for a test
      * true if the value is Y
      * false if the value is N
