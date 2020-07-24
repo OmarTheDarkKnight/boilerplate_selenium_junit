@@ -1,13 +1,12 @@
-package com.bat.configurations;
+package config;
 
-import com.bat.webdrivers.ChromeWebDriver;
 import org.springframework.context.annotation.*;
 
 @Configuration
-@ComponentScan(basePackages = "com.bat")
+@ComponentScan(basePackages = "webdrivers")
 @PropertySources({
         @PropertySource(value = "classpath:browser_config.properties"),
         @PropertySource(value = "classpath:selenium.properties")
 })
-public class SpringConfig {
+public class SpringTestConfig {
 }

@@ -1,7 +1,6 @@
 package base;
 
-import com.bat.configurations.SpringConfig;
-import com.bat.webdrivers.provider.WebDriverProvider;
+import config.SpringTestConfig;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.openqa.selenium.*;
@@ -10,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import webdrivers.provider.WebDriverProvider;
 import util.ExcelFileReader;
 
 import java.io.FileInputStream;
@@ -31,7 +31,7 @@ public class BaseTest {
      * Reads the preferences for the specific browser from properties file and set the browser accordingly
      * */
     public void launchBrowser(String browserName) {
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringTestConfig.class);
         WebDriverProvider webDriverProvider = applicationContext.getBean("webDriverProvider", WebDriverProvider.class);
         try {
             driver = webDriverProvider.getWebDriver(browserName);
