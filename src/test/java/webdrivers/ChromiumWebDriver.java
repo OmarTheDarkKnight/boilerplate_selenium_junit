@@ -1,4 +1,4 @@
-package com.bat.webdrivers;
+package webdrivers;
 
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.chromium.ChromiumOptions;

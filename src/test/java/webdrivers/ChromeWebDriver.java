@@ -1,64 +1,64 @@
-package com.bat.webdrivers;
+package webdrivers;
 
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.edge.EdgeDriverService;
-import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EdgeWebDriver extends ChromiumWebDriver {
-    @Value("${edge.driver-path}")
+public class ChromeWebDriver extends ChromiumWebDriver {
+    @Value("${chrome.driver-path}")
     private String driverPath;
 
-    @Value("${edge.binary-path}")
+    @Value("${chrome.binary-path}")
     private String binaryPath;
 
-    @Value("${edge.enable-notifications}")
+    @Value("${chrome.enable-notifications}")
     private boolean enableNotifications;
-    @Value("${edge.enable-info-bar}")
+    @Value("${chrome.enable-info-bar}")
     private boolean enableInfoBar;
-    @Value("${edge.start-maximized}")
+    @Value("${chrome.start-maximized}")
     private boolean startMaximized;
-    @Value("${edge.accept-bad-ssl}")
+    @Value("${chrome.accept-bad-ssl}")
     private boolean acceptBadSSL;
-    @Value("${edge.enable-extensions}")
+    @Value("${chrome.enable-extensions}")
     private boolean enableExtension;
 
-    @Value("${edge.use-proxy}")
+    @Value("${chrome.use-proxy}")
     private boolean useProxy;
-    @Value("${edge.proxy-server}")
+    @Value("${chrome.proxy-server}")
     private String proxyAddress;
 
-    @Value("${edge.profile}")
+    @Value("${chrome.profile}")
     private String profilePath;
-    @Value("${edge.open-in-private-mode}")
+    @Value("${chrome.open-in-private-mode}")
     private boolean openPrivateMode;
 
-    @Value("${edge.log}")
+    @Value("${chrome.log}")
     private String logPath;
-    @Value("${edge.silent-log}")
+    @Value("${chrome.silent-log}")
     private boolean silentLog;
 
-    @Value("${edge.page-load-strategy}")
+    @Value("${chrome.page-load-strategy}")
     private String pageLoadStrategy;
 
-    public EdgeWebDriver() {}
+    public ChromeWebDriver() {}
 
     @Override
-    public EdgeDriver getEdgeDriver() throws Exception {
-        EdgeOptions options = new EdgeOptions();
+    public ChromeDriver getChromeDriver() throws Exception {
+        ChromeOptions options = new ChromeOptions();
 
         try{
             setChromiumBrowserPreferences(options);
             // options.setPageLoadStrategy(PageLoadStrategy.EAGER);
 
             if(!isEmpty(logPath)) {
-                System.setProperty(EdgeDriverService.EDGE_DRIVER_LOG_PROPERTY, logPath);
+                System.setProperty(ChromeDriverService.CHROME_DRIVER_LOG_PROPERTY, logPath);
             }
 
             if(silentLog) {
-                System.setProperty(EdgeDriverService.EDGE_DRIVER_SILENT_OUTPUT_PROPERTY, Boolean.toString(silentLog));
+                System.setProperty(ChromeDriverService.CHROME_DRIVER_SILENT_OUTPUT_PROPERTY, Boolean.toString(silentLog));
             }
 
         } catch (Exception exception) {
@@ -67,8 +67,8 @@ public class EdgeWebDriver extends ChromiumWebDriver {
         }
 
         System.setProperty("webdriver.chrome.driver", driverPath);
-        System.setProperty(EdgeDriverService.EDGE_DRIVER_EXE_PROPERTY, driverPath);
-        return new EdgeDriver(options);
+        System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, driverPath);
+        return new ChromeDriver(options);
     }
 
     @Override
@@ -117,18 +117,13 @@ public class EdgeWebDriver extends ChromiumWebDriver {
     }
 
     @Override
-    public String toString() {
-        return "EdgeWebDriver";
-    }
-
-    @Override
     public boolean isOpenPrivateMode() {
         return openPrivateMode;
     }
 
     @Override
     public String getPrivateModeString() {
-        return "--inPrivate";
+        return "--incognito";
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.bat.webdrivers;
+package webdrivers;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
