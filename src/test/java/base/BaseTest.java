@@ -21,7 +21,7 @@ public class BaseTest {
     public Properties prop = null;
     public JavascriptExecutor js;
     public Actions act;
-    public ExcelFileReader excelFileReader;
+    public static ExcelFileReader excelFileReader;
 
     public String xlsxFilePath = System.getProperty("user.dir") + "\\src\\test\\resources\\data..xlsx";
 
