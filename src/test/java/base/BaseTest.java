@@ -3,14 +3,13 @@ package base;
 import com.bat.configurations.SpringConfig;
 import com.bat.webdrivers.provider.WebDriverProvider;
 import org.jetbrains.annotations.NotNull;
-import org.junit.After;
-import org.junit.Before;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import util.ExcelFileReader;
 
 import java.io.FileInputStream;
 import java.time.Duration;
@@ -22,6 +21,9 @@ public class BaseTest {
     public Properties prop = null;
     public JavascriptExecutor js;
     public Actions act;
+    public ExcelFileReader excelFileReader;
+
+    public String xlsxFilePath = System.getProperty("user.dir") + "\\src\\test\\resources\\data..xlsx";
 
     /**
      * launches browser based on the string provided by initializing the spring application context
