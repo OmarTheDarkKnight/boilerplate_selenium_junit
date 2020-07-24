@@ -3,6 +3,7 @@ package base;
 import com.bat.configurations.SpringConfig;
 import com.bat.webdrivers.provider.WebDriverProvider;
 import org.jetbrains.annotations.NotNull;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -134,6 +135,16 @@ public class BaseTest {
         else if(locatorKey.endsWith("_name")) return By.name(getProp(locatorKey));
         else if(locatorKey.endsWith("_css")) return By.cssSelector(getProp(locatorKey));
         else return By.xpath(getProp(locatorKey));
+    }
+
+    public WebElement getObject(@NotNull String locatorKey) {
+        try {
+            return driver.findElement(getObjectLocator(locatorKey));
+        } catch (Throwable t) {
+            t.printStackTrace();
+            Assert.fail(t.getMessage());
+        }
+        return null;
     }
 
     public void mainWindow() {
