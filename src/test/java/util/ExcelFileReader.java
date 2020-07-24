@@ -1,5 +1,6 @@
 package util;
 
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -10,6 +11,7 @@ public class ExcelFileReader {
     private FileInputStream fileInputStream;
     private XSSFWorkbook workbook;
     private XSSFSheet workSheet;
+    private XSSFRow row;
 
 
     public ExcelFileReader(String filePath) {
@@ -17,7 +19,7 @@ public class ExcelFileReader {
         try {
             fileInputStream = new FileInputStream(filePath);
             workbook = new XSSFWorkbook(fileInputStream);
-            setWorkSheet(0);
+            workSheet = workbook.getSheetAt(0);
             fileInputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,27 +38,41 @@ public class ExcelFileReader {
         }
     }
 
-    public ExcelFileReader(String filePath, int workSheetIndex) {
-        this.filePath = filePath;
+    public void setWorkSheet(String sheetName) throws Exception {
+        if(workbook != null) {
+            int sheetIndex = workbook.getSheetIndex(sheetName);
+            workSheet = sheetIndex == -1 ? workbook.getSheetAt(0) : workbook.getSheetAt(sheetIndex);
+        } else throw new Exception("File not set yet.");
+    }
+
+    public XSSFSheet getWorkSheet() {
+        return this.workSheet;
+    }
+
+    public int getRowCount() {
+        return getWorkSheet().getLastRowNum()+1;
+    }
+
+    public int getRowCount(String sheetName) {
         try {
-            fileInputStream = new FileInputStream(filePath);
-            workbook = new XSSFWorkbook(fileInputStream);
-            setWorkSheet(workSheetIndex);
-            fileInputStream.close();
+            setWorkSheet(sheetName);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return getRowCount();
     }
 
-    public void setWorkSheet(String sheetName) throws Exception {
-        if(workbook != null) {
-            workSheet = workbook.getSheet(sheetName);
-        } else throw new Exception("File not set yet.");
+    public int getCellCount() {
+        row = getWorkSheet().getRow(0);
+        return row == null ? 0 : row.getLastCellNum()+1;
     }
 
-    public void setWorkSheet(int sheetIndex) throws Exception {
-        if(workbook != null) {
-            workSheet = workbook.getSheetAt(sheetIndex);
-        } else throw new Exception("File not set yet.");
+    public int getCellCount(String sheetName) {
+        try {
+            setWorkSheet(sheetName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getCellCount();
     }
 }
