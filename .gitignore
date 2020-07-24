@@ -57,3 +57,4 @@ $RECYCLE.BIN/
 *.stackdump
 *.iml
 .idea
+/src/test/resources/~$data.xlsx
