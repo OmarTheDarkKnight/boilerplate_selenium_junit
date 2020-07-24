@@ -87,4 +87,71 @@ public class ExcelFileReader {
         }
         return getCellCount();
     }
+
+    /**
+     * returns cell data based on row and column index
+     * */
+    public String getCellData(int rowNum, int cellNum) {
+        String cellData = "";
+        try {
+            if (rowNum <= 0 || cellNum < 0)
+                return cellData;
+
+            setRow(rowNum);
+            if (row == null)
+                return cellData;
+
+            cell = row.getCell(cellNum);
+            if (cell == null || cell.getCellType() == CellType.BLANK) {
+                return cellData;
+            } else if (cell.getCellType() == CellType.STRING) {
+                return cell.getStringCellValue();
+            } else if(cell.getCellType()==CellType.NUMERIC || cell.getCellType()==CellType.FORMULA ){
+                cellData  = String.valueOf(cell.getNumericCellValue());
+                if (HSSFDateUtil.isCellDateFormatted(cell)) {
+                    // format in form of M/D/YY
+                    double d = cell.getNumericCellValue();
+
+                    Calendar cal =Calendar.getInstance();
+                    cal.setTime(HSSFDateUtil.getJavaDate(d));
+                    cellData =
+                            (String.valueOf(cal.get(Calendar.YEAR))).substring(2);
+                    cellData = cal.get(Calendar.DAY_OF_MONTH) + "/" +
+                            cal.get(Calendar.MONTH)+1 + "/" +
+                            cellData;
+                }
+            } else
+                return String.valueOf(cell.getBooleanCellValue());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("row "+rowNum+" or column "+ cellNum +" does not exist in xls");
+        }
+        return cellData;
+    }
+
+    /**
+     * returns cell data based on row index and column name
+     * */
+    public String getCellData(int rowNum, String cellName) {
+        String cellData = "";
+        try {
+            if (rowNum <= 0)
+                return cellData;
+
+            int cellIndex = -1;
+            for(int i = 0; i < getCellCount(); i++)
+                if(row.getCell(i).getStringCellValue().trim().equalsIgnoreCase(cellName))
+                    cellIndex = i;
+
+            if(cellIndex == -1)
+                return cellData;
+            else
+                cellData = getCellData(rowNum, cellIndex);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("row "+rowNum+" or column "+ cellName +" does not exist in xls");
+        }
+        return cellData;
+    }
 }
