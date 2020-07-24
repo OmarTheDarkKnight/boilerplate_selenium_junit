@@ -31,11 +31,11 @@ public class TestUtil extends BaseTest {
     }
 
     /**
-     * returns the skip condition for a test
+     * returns the skip or run condition for a test
      * true if the value is Y
      * false if the value is N
      * */
-    public static boolean isSkip(String testCase){
+    public static boolean runTest(String testCase){
         try {
             int rowLength = excelFileReader.getRowCount("Test Cases");
             for(int rowNum = 1; rowNum < rowLength; rowNum++) {
